@@ -1,2 +1,0 @@
-.App{align-items:center;display:flex;flex-direction:column;font-family:sans-serif;height:100vh;justify-content:center;margin:0;padding:20px}.clickMe__button,.decision__success,.event__success,.light{margin:5px 0}.clickMe__button{font-size:1rem;padding:10px 20px}.light{height:80px;width:80px}.flash-button{animation:flash .5s infinite alternate}@keyframes flash{0%{background-color:initial}to{background-color:#ff0}}
-/*# sourceMappingURL=main.c958f988.css.map*/
