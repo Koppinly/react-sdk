@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.js": "/react-sdk/static/js/main.da7bfcdb.js",
+    "static/js/787.970de6cb.chunk.js": "/react-sdk/static/js/787.970de6cb.chunk.js",
+    "index.html": "/react-sdk/index.html",
+    "main.da7bfcdb.js.map": "/react-sdk/static/js/main.da7bfcdb.js.map",
+    "787.970de6cb.chunk.js.map": "/react-sdk/static/js/787.970de6cb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.da7bfcdb.js"
+  ]
+}
