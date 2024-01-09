@@ -1,0 +1,32 @@
+Make your changes: Edit the code in your local project as needed.
+
+Test your changes: Run your app locally to make sure everything works as expected. You can usually do this with npm start.
+
+Commit your changes: Once you're satisfied with the changes, commit them to your local Git repository. Use the following commands in your terminal:
+
+sh
+Copy code
+git add .
+git commit -m "Your commit message"
+Replace "Your commit message" with a brief description of the changes you've made.
+
+Push to GitHub: Push your commits to the main branch (or whichever branch you're using) of your GitHub repository:
+
+sh
+Copy code
+git push origin main
+Deploy to GitHub Pages: Run the deploy command:
+
+sh
+Copy code
+npm run deploy
+This command will build your app and push the build to the gh-pages branch of your repository. GitHub Pages will then automatically update to serve the new version of your app.
+
+Check your live app: After deploying, it's always a good idea to visit your GitHub Pages URL to ensure the live app reflects your changes.
+
+Remember, each time you run npm run deploy, it builds the latest version of your app from your local codebase and updates the GitHub Pages site, so your workflow is essentially a cycle of making changes, testing, committing, pushing, and deploying.
+
+
+
+
+

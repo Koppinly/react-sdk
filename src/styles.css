@@ -1,0 +1,39 @@
+/* styles.css */
+.App {
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers vertically */
+  align-items: center; /* Centers horizontally */
+  height: 100vh; /* Takes full viewport height */
+  margin: 0; /* Removes default margin */
+  padding: 20px; /* Adds some padding around the content */
+}
+
+.clickMe__button,
+.decision__success,
+.event__success,
+.light {
+  margin: 5px 0; /* Reduced space between elements */
+}
+
+/* Additional styles to ensure the button and light don't take too much space */
+.clickMe__button {
+  padding: 10px 20px; /* Adjust as needed */
+  font-size: 1rem; /* Adjust as needed */
+}
+
+.light {
+  width: 80px; /* Adjust as needed */
+  height: 80px; /* Adjust as needed */
+}
+
+/* You may not need this if you're not using the flash-button class */
+.flash-button {
+  animation: flash 0.5s infinite alternate;
+}
+
+@keyframes flash {
+  from { background-color: initial; }
+  to { background-color: yellow; }
+}
