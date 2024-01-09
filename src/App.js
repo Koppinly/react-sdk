@@ -1,26 +1,44 @@
+// App.js
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import mySdkKey from "./SdkKey.js";
+import Button from '@mui/material/Button';
+import mySdkKey from "./SdkKey";
 import {
   createInstance,
   OptimizelyProvider,
-  withOptimizely,
   useDecision,
 } from "@optimizely/react-sdk";
 import "./styles.css";
 
 const optimizely = createInstance({
-  sdkKey: mySdkKey,
+  sdkKey: mySdkKey, // Replace with your actual SDK key
 });
 
 function Light({ color, onClick }) {
+  let backgroundColor;
+  // Assign a more muted shade based on the color prop
+  switch (color) {
+    case 'red':
+      backgroundColor = '#e57373'; // a muted red
+      break;
+    case 'green':
+      backgroundColor = '#81c784'; // a muted green
+      break;
+    case 'yellow':
+      backgroundColor = '#fff176'; // a muted yellow
+      break;
+    default:
+      backgroundColor = color; // default color or a fallback like grey
+      break;
+  }
+
   const style = {
     width: "100px",
     height: "100px",
-    backgroundColor: color,
+    backgroundColor: backgroundColor,
     borderRadius: "50%",
     margin: "10px auto",
-    cursor: "pointer", // Change cursor on hover to indicate it's clickable
+    cursor: "pointer",
   };
 
   return <div style={style} onClick={onClick} />;
@@ -31,44 +49,58 @@ Light.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-const DecisionComponent = withOptimizely(({ optimizely }) => {
-  const [decision] = useDecision("stoplights");
+function DecisionComponent() {
+  const [decision, setDecision] = useDecision("stoplights");
   const [showEventTriggered, setShowEventTriggered] = useState(false);
 
+  useEffect(() => {
+    // Set the user here if needed, or move this logic to the App component
+  }, []);
+
   const trackEvent = () => {
-    optimizely.track("test_event");
-    setShowEventTriggered(true);
+    if (decision.enabled) {
+      optimizely.track("test_event");
+      setShowEventTriggered(true);
+      console.log("Tracked test_event");
+    }
   };
 
-  let lightColor;
-  switch (decision.variationKey) {
-    case "redlight":
-      lightColor = "red";
-      break;
-    case "greenlight":
-      lightColor = "green";
-      break;
-    case "yellowlight":
-      lightColor = "yellow";
-      break;
-    default:
-      lightColor = "grey";
+  let lightColor = 'grey'; // Default color
+  if (decision.enabled) {
+    switch (decision.variationKey) {
+      case "redlight":
+        lightColor = "red";
+        break;
+      case "greenlight":
+        lightColor = "green";
+        break;
+      case "yellowlight":
+        lightColor = "yellow";
+        break;
+      default:
+        lightColor = "grey";
+        break;
+    }
   }
 
   return (
     <>
-      <p style={{ color: lightColor }} className="decision__success">
-        You received the `{decision.variationKey}` experience.
-      </p>
-      <Light color={lightColor} onClick={trackEvent} className="light"/>
-      {showEventTriggered && (
-        <p style={{ color: lightColor }} className="event__success">
-          You did it! You triggered test_event!
-        </p>
+      {decision.enabled && (
+        <>
+          <Light color={lightColor} onClick={trackEvent} />
+          <p style={{ color: lightColor }}>
+            You received the {decision.variationKey} experience.
+          </p>
+          {showEventTriggered && (
+            <p style={{ color: lightColor }}>
+              You did it! You triggered test_event!
+            </p>
+          )}
+        </>
       )}
     </>
   );
-});
+}
 
 function App() {
   const [isButtonClicked, setIsButtonClicked] = useState(false);
@@ -85,7 +117,7 @@ function App() {
     <div className="App">
       <h1>Optimizely Feature</h1>
       <h2>Stoplights</h2>
-      <button onClick={() => setIsButtonClicked(true)} className="clickMe__button">Click Me</button>
+      <Button variant="contained" color="success" onClick={() => setIsButtonClicked(true)}>Click Me</Button>
       {isButtonClicked && <DecisionComponent />}
     </div>
   );

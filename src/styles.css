@@ -1,4 +1,12 @@
 /* styles.css */
+
+body {
+  font-family: 'Bebas Neue', sans-serif;
+  background-color: #f8f8f8; /* Off-white background */
+  margin: 0; /* Removes default margin */
+
+}
+
 .App {
   font-family: sans-serif;
   display: flex;
@@ -8,7 +16,9 @@
   height: 100vh; /* Takes full viewport height */
   margin: 0; /* Removes default margin */
   padding: 20px; /* Adds some padding around the content */
+ 
 }
+
 
 .clickMe__button,
 .decision__success,
@@ -17,9 +27,13 @@
   margin: 5px 0; /* Reduced space between elements */
 }
 
+.decision__success, .event__success {
+  color: #d2a800; /* Darker yellow for better visibility */
+}
+
 /* Additional styles to ensure the button and light don't take too much space */
 .clickMe__button {
-  padding: 10px 20px; /* Adjust as needed */
+  padding: 20px 20px; /* Adjust as needed */
   font-size: 1rem; /* Adjust as needed */
 }
 
@@ -35,5 +49,5 @@
 
 @keyframes flash {
   from { background-color: initial; }
-  to { background-color: yellow; }
+  to { background-color: #c2b300; }
 }
