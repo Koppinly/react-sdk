@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/react-sdk/static/css/main.b5baa291.css",
-    "main.js": "/react-sdk/static/js/main.8b5009c0.js",
-    "static/js/787.970de6cb.chunk.js": "/react-sdk/static/js/787.970de6cb.chunk.js",
-    "index.html": "/react-sdk/index.html",
-    "main.b5baa291.css.map": "/react-sdk/static/css/main.b5baa291.css.map",
-    "main.8b5009c0.js.map": "/react-sdk/static/js/main.8b5009c0.js.map",
-    "787.970de6cb.chunk.js.map": "/react-sdk/static/js/787.970de6cb.chunk.js.map"
+    "main.css": "/greenlight.github.io/static/css/main.b5baa291.css",
+    "main.js": "/greenlight.github.io/static/js/main.d55686ce.js",
+    "static/js/787.970de6cb.chunk.js": "/greenlight.github.io/static/js/787.970de6cb.chunk.js",
+    "index.html": "/greenlight.github.io/index.html",
+    "main.b5baa291.css.map": "/greenlight.github.io/static/css/main.b5baa291.css.map",
+    "main.d55686ce.js.map": "/greenlight.github.io/static/js/main.d55686ce.js.map",
+    "787.970de6cb.chunk.js.map": "/greenlight.github.io/static/js/787.970de6cb.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b5baa291.css",
-    "static/js/main.8b5009c0.js"
+    "static/js/main.d55686ce.js"
   ]
 }
