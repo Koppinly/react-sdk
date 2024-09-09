@@ -50,7 +50,18 @@ Light.propTypes = {
 };
 
 function DecisionComponent() {
+  // Start timing before calling the hook
+  const startTime = performance.now();
+
   const [decision, setDecision] = useDecision("stoplights");
+
+  // End timing after the hook returns
+  const endTime = performance.now();
+
+  // Calculate the duration
+  const duration = endTime - startTime;
+  console.log(`useDecision hook duration: ${duration}ms`);
+
   const [showEventTriggered, setShowEventTriggered] = useState(false);
 
   useEffect(() => {

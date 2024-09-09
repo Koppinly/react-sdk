@@ -1,5 +1,5 @@
 {
-  "homepage": "https://Koppinly.github.io/react-sdk",
+  "homepage": "https://koppinly.github.io/react-sdk",
   "name": "opty-react-sdk",
   "version": "0.1.0",
   "private": true,
@@ -47,6 +47,9 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/preset-env": "^7.25.3",
+    "@babel/preset-react": "^7.24.7",
     "gh-pages": "^6.1.1"
   }
 }
