@@ -1,7 +1,5 @@
-// App.js
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Button from '@mui/material/Button';
 import mySdkKey from "./SdkKey";
 import {
   createInstance,
@@ -9,26 +7,26 @@ import {
   useDecision,
 } from "@optimizely/react-sdk";
 import "./styles.css";
+import "nes.css/css/nes.min.css";
 
-const optimizely = createInstance({
-  sdkKey: mySdkKey, // Replace with your actual SDK key
+let optimizely = createInstance({
+  sdkKey: mySdkKey,
 });
 
 function Light({ color, onClick }) {
   let backgroundColor;
-  // Assign a more muted shade based on the color prop
   switch (color) {
     case 'red':
-      backgroundColor = '#e57373'; // a muted red
+      backgroundColor = '#e57373';
       break;
     case 'green':
-      backgroundColor = '#81c784'; // a muted green
+      backgroundColor = '#92cc41';
       break;
     case 'yellow':
-      backgroundColor = '#fff176'; // a muted yellow
+      backgroundColor = '#dada09';
       break;
     default:
-      backgroundColor = color; // default color or a fallback like grey
+      backgroundColor = color;
       break;
   }
 
@@ -39,6 +37,7 @@ function Light({ color, onClick }) {
     borderRadius: "50%",
     margin: "10px auto",
     cursor: "pointer",
+    border: "solid 2px #000",
   };
 
   return <div style={style} onClick={onClick} />;
@@ -49,24 +48,14 @@ Light.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-function DecisionComponent() {
-  // Start timing before calling the hook
+function DecisionComponent({ onReset }) {
   const startTime = performance.now();
-
   const [decision, setDecision] = useDecision("stoplights");
-
-  // End timing after the hook returns
   const endTime = performance.now();
-
-  // Calculate the duration
   const duration = endTime - startTime;
   console.log(`useDecision hook duration: ${duration}ms`);
 
   const [showEventTriggered, setShowEventTriggered] = useState(false);
-
-  useEffect(() => {
-    // Set the user here if needed, or move this logic to the App component
-  }, []);
 
   const trackEvent = () => {
     if (decision.enabled) {
@@ -80,13 +69,13 @@ function DecisionComponent() {
   if (decision.enabled) {
     switch (decision.variationKey) {
       case "redlight":
-        lightColor = "red";
+        lightColor = "#ff0000";
         break;
       case "greenlight":
-        lightColor = "green";
+        lightColor = "#92cc41";
         break;
       case "yellowlight":
-        lightColor = "yellow";
+        lightColor = "#dada09";
         break;
       default:
         lightColor = "grey";
@@ -94,19 +83,43 @@ function DecisionComponent() {
     }
   }
 
+  // Styles for the decision text
+  const textStyle = {
+    color: lightColor,
+    fontSize: "1.5em",
+    fontFamily: "monospace",
+    textAlign: "center",
+    marginTop: "20px",
+  };
+
   return (
     <>
       {decision.enabled && (
         <>
           <Light color={lightColor} onClick={trackEvent} />
-          <p style={{ color: lightColor }}>
+          <p style={textStyle}>
             You received the {decision.variationKey} experience.
           </p>
           {showEventTriggered && (
-            <p style={{ color: lightColor }}>
+            <p style={textStyle}>
               You did it! You triggered test_event!
             </p>
           )}
+
+          {/* "Try Again" button styled based on the decision */}
+          <button
+            className="nes-btn"
+            style={{
+              backgroundColor: lightColor,
+              color: "white",
+              marginTop: "20px",
+              display: "block",
+              margin: "0 auto", // Center the button
+            }}
+            onClick={onReset}
+          >
+            Try Again
+          </button>
         </>
       )}
     </>
@@ -115,6 +128,18 @@ function DecisionComponent() {
 
 function App() {
   const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [key, setKey] = useState(0); // Add key state to force re-rendering
+
+  // Function to reset the entire process
+  const resetProcess = () => {
+    const newUserId = Math.random().toString(36).substring(2, 15); // Generate new user_id
+    optimizely.setUser({
+      id: newUserId,
+      attributes: {},
+    });
+    setIsButtonClicked(false); // Reset button click state
+    setKey(prevKey => prevKey + 1); // Force re-render with a new key
+  };
 
   useEffect(() => {
     const userId = Math.random().toString(36).substring(2, 15);
@@ -125,15 +150,14 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <h1>Optimizely Feature</h1>
-      <h2>Stoplights</h2>
-      <Button variant="contained" color="success" onClick={() => setIsButtonClicked(true)}>Click Me</Button>
-      {isButtonClicked && <DecisionComponent />}
+    <div className="App" style={{ backgroundColor: "rgb(240, 240, 240)" }}>
+      <h1 className="nes-text is-primary">Optimizely Feature</h1>
+      <h2 className="nes-text is-warning">Stoplights</h2>
+      <button className="nes-btn is-success" onClick={() => setIsButtonClicked(true)}>Click Me</button>
+      {isButtonClicked && <DecisionComponent onReset={resetProcess} key={key} />} {/* Pass the reset function */}
     </div>
   );
 }
-
 function WrappedApp() {
   return (
     <OptimizelyProvider optimizely={optimizely}>
